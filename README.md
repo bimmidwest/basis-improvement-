@@ -1,4 +1,3 @@
-# basis-improvement-<!DOCTYPE html>
 <html>
 <head>
   <title>Corn Basis Improvement if You Stop Selling Cash</title>
