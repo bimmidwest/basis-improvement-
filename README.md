@@ -1,18 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <title>Corn Basis Improvement if You Stop Selling Cash</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Corn Basis Improvement Calculator</title>
   <style>
     body {
-      font-family: Arial;
+      font-family: Arial, sans-serif;
+      background-color: #f0f4f8;
+      color: #333;
       padding: 20px;
-      max-width: 700px;
+      max-width: 800px;
       margin: auto;
       text-align: center;
-      font-size: 20px;
+    }
+    header {
+      margin-bottom: 30px;
+    }
+    header img {
+      max-width: 200px;
+      margin-bottom: 10px;
     }
     input[type=range] {
       width: 100%;
-      -webkit-appearance: none;
-      appearance: none;
       height: 8px;
       background: #ddd;
       border-radius: 4px;
@@ -20,68 +30,64 @@
       cursor: pointer;
     }
     input[type=range]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 20px;
-      height: 20px;
-      background: #4CAF50;
+      width: 20px; height: 20px;
+      background: #004a80;
       border-radius: 50%;
       cursor: pointer;
       margin-top: -6px;
     }
     input[type=range]::-moz-range-thumb {
-      width: 20px;
-      height: 20px;
-      background: #4CAF50;
+      width: 20px; height: 20px;
+      background: #004a80;
       border-radius: 50%;
       cursor: pointer;
     }
-    .section {
-      margin-bottom: 20px;
-      border: 2px solid #4CAF50;
-      border-radius: 10px;
-      padding: 15px;
-      background-color: #f9f9f9;
-    }
+    .section { margin-bottom: 20px; text-align: left; }
+    .section label { display: block; margin-bottom: 6px; font-weight: bold; }
     .output {
-      font-weight: bold;
       margin-top: 10px;
-      border: 2px solid #2196F3;
-      border-radius: 10px;
       padding: 15px;
+      border-radius: 10px;
       background-color: #eef6fd;
-    }
-    h2 {
-      font-size: 28px;
+      border: 2px solid #2196F3;
+      font-size: 1.1em;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <h2>🌽 Corn Basis Improvement if You Stop Selling Cash</h2>
+
+  <header>
+    <img src="https://www.midwestmarketmanagement.com/wp-content/uploads/2023/02/mm-logo.png" alt="Midwest Market Management Logo" />
+    <h1>Corn Basis Improvement Calculator</h1>
+  </header>
 
   <div class="section">
-    <label>Basis Improvement ($/bushel): <span id="basisValue">0.80</span></label>
-    <input type="range" id="basis" min="0.10" max="0.80" step="0.01" value="0.80">
+    <label for="basis">Basis Improvement ($/bu): <span id="basisValue">0.25</span></label>
+    <input type="range" id="basis" min="0.05" max="1.00" step="0.01" value="0.25" />
   </div>
 
   <div class="section">
-    <label>Yield per Acre (fixed): 200 bu/acre</label>
+    <label for="yield">Yield per Acre (bu): <span id="yieldValue">200</span></label>
+    <input type="range" id="yield" min="130" max="250" step="1" value="200" />
   </div>
 
   <div class="section">
-    <label>Acres: <span id="acresValue">2,000</span></label>
-    <input type="range" id="acres" min="250" max="2000" step="50" value="2000">
+    <label for="acres">Acres: <span id="acresValue">1,000</span></label>
+    <input type="range" id="acres" min="100" max="2000" step="100" value="1000" />
   </div>
 
-  <div class="section output" id="perAcreValue"></div>
-  <div class="section output" id="annualValue"></div>
-  <div class="section output" id="fortyYearTotal"></div>
-  <div class="section output" id="investedValue"></div>
+  <div class="output" id="perAcreValue">…</div>
+  <div class="output" id="annualValue">…</div>
+  <div class="output" id="fortyYearTotal">…</div>
+  <div class="output" id="investedValue">…</div>
 
   <script>
     const basisSlider = document.getElementById("basis");
+    const yieldSlider = document.getElementById("yield");
     const acresSlider = document.getElementById("acres");
     const basisLabel = document.getElementById("basisValue");
+    const yieldLabel = document.getElementById("yieldValue");
     const acresLabel = document.getElementById("acresValue");
     const perAcreValueEl = document.getElementById("perAcreValue");
     const annualValueEl = document.getElementById("annualValue");
@@ -94,33 +100,31 @@
 
     function updateValues() {
       const basis = parseFloat(basisSlider.value);
+      const yld = parseInt(yieldSlider.value);
       const acres = parseInt(acresSlider.value);
-      const yieldPerAcre = 200;
-      const perAcreValue = basis * yieldPerAcre;
-      const annualImprovement = perAcreValue * acres;
 
-      // 40 year static total
+      const perAcreValue = basis * yld;
+      const annualImprovement = perAcreValue * acres;
       const fortyYearTotal = annualImprovement * 40;
 
-      // Compound growth at 8% over 40 years with yearly contributions
       const rate = 0.08;
       const n = 40;
       const compoundFutureValue = annualImprovement * ((Math.pow(1 + rate, n) - 1) / rate);
 
-      // Update display
       basisLabel.textContent = basis.toFixed(2);
+      yieldLabel.textContent = yld.toLocaleString();
       acresLabel.textContent = acres.toLocaleString();
-      perAcreValueEl.innerHTML = `💡 Per Acre Basis Improvement Value: <span style="color:#9C27B0">${formatCurrency(perAcreValue)}</span>`;
-      annualValueEl.innerHTML = `📈 Annual Basis Improvement Value: <span style="color:green">${formatCurrency(annualImprovement)}</span>`;
-      fortyYearEl.innerHTML = `📅 40-Year Total (No Investing): <span style="color:blue">${formatCurrency(fortyYearTotal)}</span>`;
-      investedEl.innerHTML = `💰 40-Year Compounded Investment (8%): <span style="color:darkgreen">${formatCurrency(compoundFutureValue)}</span>`;
+
+      perAcreValueEl.textContent = `💡 Per Acre Value: ${formatCurrency(perAcreValue)}`;
+      annualValueEl.textContent = `📈 Annual Value: ${formatCurrency(annualImprovement)}`;
+      fortyYearEl.textContent = `📅 40‑Year Total (No Investing): ${formatCurrency(fortyYearTotal)}`;
+      investedEl.textContent = `💰 40‑Year Compounded (8%): ${formatCurrency(compoundFutureValue)}`;
     }
 
-    basisSlider.addEventListener("input", updateValues);
-    acresSlider.addEventListener("input", updateValues);
-
-    // Initial calculation
+    [basisSlider, yieldSlider, acresSlider].forEach(slider => slider.addEventListener("input", updateValues));
     updateValues();
   </script>
+
 </body>
 </html>
+
