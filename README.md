@@ -1,58 +1,74 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title> Corn Basis Improvement Calculator </title>
+  <title>Corn Basis Improvement</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f0f4f8;
-      color: #333;
+      background-color: #ffffff;
+      color: #003366;
       padding: 20px;
       max-width: 800px;
       margin: auto;
       text-align: center;
     }
-    header {
+    h1 {
+      color: #003366;
+      border-bottom: 2px solid #0055a5;
+      padding-bottom: 10px;
       margin-bottom: 30px;
-    }
-    header img {
-      max-width: 200px;
-      margin-bottom: 10px;
     }
     input[type=range] {
       width: 100%;
       height: 8px;
-      background: #ddd;
+      background: #cce0f5;
       border-radius: 4px;
       outline: none;
       cursor: pointer;
     }
     input[type=range]::-webkit-slider-thumb {
-      width: 20px; height: 20px;
-      background: #004a80;
+      width: 20px;
+      height: 20px;
+      background: #0055a5;
       border-radius: 50%;
       cursor: pointer;
       margin-top: -6px;
     }
     input[type=range]::-moz-range-thumb {
-      width: 20px; height: 20px;
-      background: #004a80;
+      width: 20px;
+      height: 20px;
+      background: #0055a5;
       border-radius: 50%;
       cursor: pointer;
     }
-    .section { margin-bottom: 20px; text-align: left; }
-    .section label { display: block; margin-bottom: 6px; font-weight: bold; }
+    .section {
+      margin-bottom: 25px;
+      text-align: left;
+    }
+    .section label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+      color: #002244;
+    }
     .output {
-      margin-top: 10px;
+      margin-top: 12px;
       padding: 15px;
       border-radius: 10px;
-      background-color: #eef6fd;
-      border: 2px solid #2196F3;
+      background-color: #f0f8ff;
+      border: 2px solid #0077cc;
       font-size: 1.1em;
       font-weight: bold;
+      color: #003366;
     }
-  
+  </style>
+</head>
+<body>
+
+  <h1>Corn Basis Improvement</h1>
+
   <div class="section">
     <label for="basis">Basis Improvement ($/bu): <span id="basisValue">0.25</span></label>
     <input type="range" id="basis" min="0.05" max="1.00" step="0.01" value="0.25" />
@@ -86,7 +102,10 @@
     const investedEl = document.getElementById("investedValue");
 
     function formatCurrency(value) {
-      return "$" + value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      return "$" + value.toLocaleString(undefined, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
     }
 
     function updateValues() {
@@ -100,7 +119,8 @@
 
       const rate = 0.08;
       const n = 40;
-      const compoundFutureValue = annualImprovement * ((Math.pow(1 + rate, n) - 1) / rate);
+      const compoundFutureValue =
+        annualImprovement * ((Math.pow(1 + rate, n) - 1) / rate);
 
       basisLabel.textContent = basis.toFixed(2);
       yieldLabel.textContent = yld.toLocaleString();
@@ -112,10 +132,11 @@
       investedEl.textContent = `💰 40‑Year Compounded (8%): ${formatCurrency(compoundFutureValue)}`;
     }
 
-    [basisSlider, yieldSlider, acresSlider].forEach(slider => slider.addEventListener("input", updateValues));
+    [basisSlider, yieldSlider, acresSlider].forEach(slider =>
+      slider.addEventListener("input", updateValues)
+    );
     updateValues();
   </script>
 
 </body>
 </html>
-
