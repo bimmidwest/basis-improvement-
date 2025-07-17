@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -53,9 +52,6 @@
       font-size: 1.1em;
       font-weight: bold;
     }
-  </style>
-</head>
-<body>
   </header>
 
   <div class="section">
