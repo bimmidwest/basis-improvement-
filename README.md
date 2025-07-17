@@ -56,10 +56,6 @@
   </style>
 </head>
 <body>
-
-  <header>
-    <img src="https://www.midwestmarketmanagement.com/wp-content/uploads/2023/02/mm-logo.png" alt="Midwest Market Management Logo" />
-    <h1>Corn Basis Improvement Calculator</h1>
   </header>
 
   <div class="section">
