@@ -2,7 +2,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Corn Basis Improvement Calculator</title>
+  <title> Corn Basis Improvement Calculator </title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -52,8 +52,7 @@
       font-size: 1.1em;
       font-weight: bold;
     }
-  </header>
-
+  
   <div class="section">
     <label for="basis">Basis Improvement ($/bu): <span id="basisValue">0.25</span></label>
     <input type="range" id="basis" min="0.05" max="1.00" step="0.01" value="0.25" />
@@ -107,8 +106,8 @@
       yieldLabel.textContent = yld.toLocaleString();
       acresLabel.textContent = acres.toLocaleString();
 
-      perAcreValueEl.textContent = `💡 Per Acre Value: ${formatCurrency(perAcreValue)}`;
-      annualValueEl.textContent = `📈 Annual Value: ${formatCurrency(annualImprovement)}`;
+      perAcreValueEl.textContent = `💡 Per Acre: ${formatCurrency(perAcreValue)}`;
+      annualValueEl.textContent = `📈 Annual Gain: ${formatCurrency(annualImprovement)}`;
       fortyYearEl.textContent = `📅 40‑Year Total (No Investing): ${formatCurrency(fortyYearTotal)}`;
       investedEl.textContent = `💰 40‑Year Compounded (8%): ${formatCurrency(compoundFutureValue)}`;
     }
